@@ -45,20 +45,31 @@ def main():
    clock = pygame.time.Clock() # Initialize the clock here
 
    # -- Rectangle Staring position -- # 
-   rect_x = 50
-   rect_y = 50 
+   rect_x = 0
+   rect_y = 0 
 
 
    # -- Speed and Direction of Rectangle -- #
-   rect_change_x = 5
-   rect_change_y = 5 
+   rect_change_x = 4
+   rect_change_y = 4
 
+   # -- Rectangle Change Size-- #
+   rect_change_Size_x = 50
+   rect_change_Size_y = 50
 
    running = True
    while running:
 
-   
+      # -- Bounce (Wall Border) -- #
+      if rect_y > 550 or rect_y < 0: 
+         rect_change_y = rect_change_y * -1.05 # (1) Set Speed, Anything above 1 Increase Speed
+         rect_change_Size_x += 4
+      if rect_x > 750 or rect_x < 0: 
+         rect_change_x = rect_change_x * -1.05 # (1) Set Speed, Anything above 1 Increase Speed
+         rect_change_Size_y += 4
          
+
+      
 
       running = handle_events()
       screen.fill(config.BLACK) # Use color from config
@@ -89,8 +100,8 @@ def main():
 
 
       # -- Draw Rectangle -- # 
-      color = config.SKY_BLUE
-      pygame.draw.rect(screen, config.BROWN, [rect_x, rect_y, 50, 50])
+      color = config.BROWN
+      pygame.draw.rect(screen, color, [rect_x, rect_y, rect_change_Size_x, rect_change_Size_y])
       rect_x += rect_change_x
       rect_y += rect_change_y
 
